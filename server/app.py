@@ -8,7 +8,6 @@ app.config.from_object("config.DevelopmentConfig")
 
 api = Api(app)
 
-
 api.add_resource(Versions, '/admin/api/versions')
 
 
