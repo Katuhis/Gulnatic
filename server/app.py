@@ -19,7 +19,3 @@ def admin():
 @app.route("/")
 def home():
   return render_template('app/index.html')
-
-
-if __name__ == "__main__":
-  app.run()
