@@ -5,17 +5,15 @@ from server.connect import db
 from server.common.exceptions import MainError
 
 
-class VersionsModel:
+class ChampionsModel:
     def __init__(self):
-        self.collection = db.get_collection("versions")
+        self.collection = db.get_collection("champions")
 
     def find(self,
              condition: dict,
              fields: list = None,
-             sort: list = None) -> list:
-        """
-        Search documents in collection
-        """
+             sort: list = None
+             ) -> list:
         try:
             # Set up fields for searching in collection
             fields_dict = {}
@@ -37,41 +35,20 @@ class VersionsModel:
         except errors.PyMongoError as pymongo_error:
             raise MainError(500100, str(pymongo_error))
 
-    def select_all_versions_numbers(self) -> list:
-        """
-        Select all versions from table with numbers
-        """
-        return self.find(
-            condition={},
-            fields=['number'],
-            sort=[('dateUpload', -1)]
-        )
-
-    def insert_record(self, record: dict) -> bson.ObjectId:
-        """
-        Insert one document in collection
-        """
+    def insert_record(self, record) -> bson.ObjectId:
         try:
             return self.collection.insert_one(record).inserted_id
         except errors.PyMongoError as pymongo_error:
             raise MainError(500100, str(pymongo_error))
 
-    def insert_record_if_not_exists(self, record: dict) -> bson.ObjectId:
-        """
-        Insert one document in collection if not exists
-        """
-        if not self.find(condition={"number": record["number"]}):
-            result_insert = self.insert_record(record)
-        else:
-            result_insert = None
-
-        return result_insert
-
-    def insert_record_list(self, records: list) -> list:
-        """
-        Insert list of documents in collection
-        """
+    def delete_record(self, condition) -> int:
         try:
-            return self.collection.insert_many(records).inserted_ids
+            return self.collection.delete_one(condition).deleted_count
         except errors.PyMongoError as pymongo_error:
             raise MainError(500100, str(pymongo_error))
+
+    def upsert_record(self, record) -> bson.ObjectId:
+        if self.find({'version': record.get('version'), 'id': record.get('id')}):
+            self.delete_record({'version': record.get('version'), 'id': record.get('id')})
+
+        return self.insert_record(record)
