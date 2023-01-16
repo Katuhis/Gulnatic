@@ -5,7 +5,7 @@
   "author": "",
   "engines": {
     "node": ">= 16.15.*",
-    "npm": "8.5.*"
+    "npm": "9.3.*"
   },
   "scripts": {
     "start:app": "webpack serve --config webpack.config-dev.js --env src=app --port 3001",
