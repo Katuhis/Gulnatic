@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { setUserAction } from 'store/actions/auth'
+import { setUser } from 'store/actions/auth'
 import IUser from 'interfaces/IUser'
 
 export interface IAuthState {
@@ -11,7 +11,7 @@ export default createReducer<IAuthState>({
     name: ''
   }
 }, (builder) => {
-  builder.addCase(setUserAction, (state, action) => {
+  builder.addCase(setUser, (state, action) => {
     state.user = action.payload
   })
 })
