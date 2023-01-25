@@ -5,10 +5,10 @@ const getPatches = (
   abortController: AbortController
 ): Promise<IPatch[]> => {
   return api
-    .get('patches', {
+    .get('versions', {
       signal: abortController.signal
     })
-    .then((response) => response.data as IPatch[])
+    .then((response) => response.data.data.versions as IPatch[])
     .catch((e) => Promise.reject(e))
 }
 

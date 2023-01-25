@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from 'react'
 import { useParams } from 'react-router-dom'
-import AppPage from 'components/AppPage'
+import HomePage from 'pages/HomePage'
 
 interface IProps {
   children?: ReactNode
@@ -18,10 +18,10 @@ const PatchPage: FC<IProps> = ({
   }
 
   return (
-    <AppPage>
+    <HomePage>
       patchId: {patchId}
       {children}
-    </AppPage>
+    </HomePage>
   )
 }
 

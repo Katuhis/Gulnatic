@@ -38,13 +38,12 @@ export default (): HookEndpoints => {
   }, [])
 
   return useMemo(() => {
-    const mounted = mountedRef.current
-    const requests = activeRequests.current
-
     return Object.keys(endpoints).reduce((result, endpointKey) => {
       const endpoint = endpoints[endpointKey]
 
       result[endpointKey] = (...args) => {
+        const requests = activeRequests.current
+
         requests.get(endpointKey)?.abort()
 
         const abortController = new AbortController()
@@ -53,6 +52,8 @@ export default (): HookEndpoints => {
 
         return endpoint(abortController, ...args as [unknown])
           .then((response) => {
+            const mounted = mountedRef.current
+
             if (mounted) {
               return response
             }

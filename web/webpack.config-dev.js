@@ -4,7 +4,7 @@ const config = require('./webpack.config')
 
 module.exports = (env) => merge(config({
   ...env,
-  apiUrl: 'http://localhost:4000/'
+  apiUrl: `http://localhost:5000${env.apiRoute}/`
 }), {
   mode: 'development',
   output: {
@@ -12,7 +12,9 @@ module.exports = (env) => merge(config({
   },
   devtool: 'inline-source-map',
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
     hot: true,
     open: true,
     port: 3000
