@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPatches } from 'store/actions/app'
 import { userSelector } from 'store/selectors/auth'
@@ -26,6 +26,7 @@ const AppPage: FC<IProps> = ({
   const user = useSelector(userSelector)
   const patches = useSelector(patchesSelector)
   const dispatch = useDispatch()
+  const { patchId } = useParams()
   const { getPatches } = useApi()
 
   /*
@@ -49,7 +50,7 @@ const AppPage: FC<IProps> = ({
           dispatch(setPatches(patches))
 
           if (patches.length) {
-            redirectLink = getPatchLink(patches[0].number)
+            redirectLink = getPatchLink(patchId || patches[0].number)
           } else {
             redirectLink = routes.init
           }
