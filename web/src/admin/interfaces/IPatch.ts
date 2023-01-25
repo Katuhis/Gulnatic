@@ -1,3 +1,3 @@
 export default interface IPatch {
-  id: string
+  number: string
 }
