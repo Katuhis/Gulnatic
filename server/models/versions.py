@@ -37,16 +37,6 @@ class VersionsModel:
         except errors.PyMongoError as pymongo_error:
             raise MainError(500100, str(pymongo_error))
 
-    def select_all_versions_numbers(self) -> list:
-        """
-        Select all versions from table with numbers
-        """
-        return self.find(
-            condition={},
-            fields=['number'],
-            sort=[('dateUpload', -1)]
-        )
-
     def insert_record(self, record: dict) -> bson.ObjectId:
         """
         Insert one document in collection

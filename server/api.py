@@ -13,7 +13,5 @@ def create_api(app):
     api.add_resource(Versions, '/admin/api/versions')
     api.add_resource(VersionsUpload, '/admin/api/versions/upload')
 
-    api.add_resource(ChampionUpload, '/admin/api/<string:version>/champions/<champion_id>/upload')
-    api.add_resource(ChampionAllUpload, '/admin/api/<string:version>/champions/upload')
-
-
+    api.add_resource(ChampionUpload, '/admin/api/versions/<string:version>/champions/<champion_id>/upload')
+    api.add_resource(ChampionAllUpload, '/admin/api/versions/<string:version>/champions/upload')
