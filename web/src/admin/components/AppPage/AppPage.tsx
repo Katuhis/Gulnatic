@@ -61,7 +61,7 @@ const AppPage: FC<IProps> = ({
           // TODO: display an error or redirect to the error page
         })
     }
-  }, [navigate, dispatch, patches, getPatches])
+  }, [navigate, dispatch, patches, patchId, getPatches])
 
   if (!patches) {
     return (
