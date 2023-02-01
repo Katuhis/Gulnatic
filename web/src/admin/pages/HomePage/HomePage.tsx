@@ -1,10 +1,6 @@
 import React, { FC, ReactNode } from 'react'
-import { useSelector } from 'react-redux'
-import { patchesSelector } from 'store/selectors/app'
 import AppPage from 'components/AppPage'
-import { Tabs } from 'antd'
-import { getPatchLink } from 'common/routes'
-import { useNavigate, useParams } from 'react-router-dom'
+import HomePageContent from './HomePageContent'
 
 interface IProps {
   children?: ReactNode
@@ -13,30 +9,11 @@ interface IProps {
 const HomePage: FC<IProps> = ({
   children
 }) => {
-  const patches = useSelector(patchesSelector)
-  const navigate = useNavigate()
-  const { patchId } = useParams()
-
-  const onChange = (key: string): void => {
-    const redirectLink = getPatchLink(key)
-
-    navigate(redirectLink)
-  }
-
-  const selectedTabKey = patchId || (patches ? patches[0].number : '')
-
   return (
     <AppPage>
-      <Tabs
-        defaultActiveKey={selectedTabKey}
-        onChange={onChange}
-        type="card"
-        items={patches?.map((patch) => ({
-          label: patch.number,
-          key: patch.number,
-          children: children
-        }))}
-      />
+      <HomePageContent>
+        {children}
+      </HomePageContent>
     </AppPage>
   )
 }
