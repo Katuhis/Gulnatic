@@ -23,10 +23,12 @@ const HomePage: FC<IProps> = ({
     navigate(redirectLink)
   }
 
+  const selectedTabKey = patchId || (patches ? patches[0].number : '')
+
   return (
     <AppPage>
       <Tabs
-        defaultActiveKey={patchId}
+        defaultActiveKey={selectedTabKey}
         onChange={onChange}
         type="card"
         items={patches?.map((patch) => ({

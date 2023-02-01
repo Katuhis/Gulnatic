@@ -23,13 +23,10 @@ class Versions(Resource):
                 sort=[('dateUpload', -1)]
             )
 
-            from_zone = tz.tzutc()
-            to_zone = tz.tzlocal()
-
             result = [
                 {
                     'number': r['number'],
-                    'dateUpload': r['dateUpload'].replace(tzinfo=from_zone).astimezone(to_zone).strftime("%d/%m/%Y, %H:%M:%S"),
+                    'dateUpload': r['dateUpload'].strftime("%d/%m/%Y, %H:%M:%S"),
                     'status': r['status']
                 } for r in result]
 
