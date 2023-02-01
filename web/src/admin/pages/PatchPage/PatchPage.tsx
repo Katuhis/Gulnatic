@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from 'react'
-import { useParams } from 'react-router-dom'
 import HomePage from 'pages/HomePage'
+import PatchPageContent from './PatchPageContent'
 
 interface IProps {
   children?: ReactNode
@@ -9,18 +9,11 @@ interface IProps {
 const PatchPage: FC<IProps> = ({
   children
 }) => {
-  const { patchId } = useParams()
-
-  if (!patchId) {
-    return (
-      <>todo: redirect to a first patch in the list</>
-    )
-  }
-
   return (
     <HomePage>
-      patchId: {patchId}
-      {children}
+      <PatchPageContent>
+        {children}
+      </PatchPageContent>
     </HomePage>
   )
 }

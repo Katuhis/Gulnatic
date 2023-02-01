@@ -243,10 +243,6 @@
         "nonEmpty": "tag-aligned"
       }
     ],
-    "react/jsx-first-prop-new-line": [
-      "error",
-      "multiline"
-    ],
     "react/jsx-max-props-per-line": [
       "error",
       { "maximum": 2 }

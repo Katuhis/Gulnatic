@@ -1,44 +1,62 @@
 import React, { FC } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import routes from 'common/routes'
+import { Routes, Route, Navigate, useParams } from 'react-router-dom'
+import routes, { getPatchLink } from 'common/routes'
 import HomePage from 'pages/HomePage'
-import PatchesPage from 'pages/PatchesPage'
-import ChampionsPage from 'pages/ChampionsPage'
+import PatchPage from 'pages/PatchPage'
+import ChampionPage from 'pages/ChampionPage'
 import NotFoundPage from 'pages/NotFoundPage'
 
 const App: FC = () => {
+  const { patchId } = useParams()
+
   return (
-    <BrowserRouter basename={webpack.APP_ROUTE}>
-      <Routes>
+    <Routes>
+      <Route
+        path={routes.home}
+        element={
+          <HomePage />
+        }
+      />
+
+      <Route path={routes.patches}>
         <Route
-          path={routes.home}
+          index
           element={
-            <HomePage />
+            <Navigate replace to={routes.home} />
           }
         />
 
         <Route
-          path={routes.patches}
+          path={':patchId'}
           element={
-            <PatchesPage />
+            <PatchPage />
+          }
+        />
+      </Route>
+
+      <Route path={routes.champions}>
+        <Route
+          index
+          element={
+            <Navigate replace to={getPatchLink(patchId)} />
           }
         />
 
         <Route
-          path={routes.champions}
+          path={':championId'}
           element={
-            <ChampionsPage />
+            <ChampionPage />
           }
         />
+      </Route>
 
-        <Route
-          path="*"
-          element={
-            <NotFoundPage />
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+      <Route
+        path="*"
+        element={
+          <NotFoundPage />
+        }
+      />
+    </Routes>
   )
 }
 
