@@ -1,4 +1,5 @@
 from datetime import datetime
+from dateutil import tz
 from flask_restful import Resource
 from pandas import read_json
 from urllib.error import HTTPError
@@ -16,7 +17,18 @@ class Versions(Resource):
         try:
             versions = VersionsModel()
 
-            result = versions.select_all_versions_numbers()
+            result = versions.find(
+                condition={},
+                fields=['number', 'dateUpload', 'status'],
+                sort=[('dateUpload', -1)]
+            )
+
+            result = [
+                {
+                    'number': r['number'],
+                    'dateUpload': r['dateUpload'].strftime("%d/%m/%Y, %H:%M:%S"),
+                    'status': r['status']
+                } for r in result]
 
             return {
                        "status": "OK",
